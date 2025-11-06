@@ -1,15 +1,21 @@
-#include <vector>
+#include <iostream>
 #include <string>
-#include <algorithm>
 using namespace std;
 
-vector<string> generatePermutations(string str) {
-    vector<string> result;
-    sort(str.begin(), str.end());
-    
-    do {
-        result.push_back(str);
-    } while (next_permutation(str.begin(), str.end()));
-    
-    return result;
+void permute(string str, int l, int r) {
+    if (l == r) {
+        cout << str << endl;  // Вывод перестановки
+    } else {
+        for (int i = l; i <= r; i++) {
+            swap(str[l], str[i]);       // Меняем местами символы
+            permute(str, l + 1, r);    // Рекурсивный вызов для оставшейся части
+            swap(str[l], str[i]);       // Возвращаем символы обратно (откат)
+        }
+    }
+}
+
+int main() {
+    string s = "abc";
+    permute(s, 0, s.size() - 1);
+    return 0;
 }
