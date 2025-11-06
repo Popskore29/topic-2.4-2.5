@@ -1,39 +1,24 @@
-import java.util.*;
-
 public class Permutations {
-    public static List<String> generatePermutations(String str) {
-        List<String> result = new ArrayList<>();
-        char[] chars = str.toCharArray();
-        Arrays.sort(chars);
-        
-        do {
-            result.add(new String(chars));
-        } while (nextPermutation(chars));
-        
-        return result;
+    public static void permute(char[] arr, int l, int r) {
+        if (l == r) {
+            System.out.println(new String(arr)); // Вывод перестановки
+        } else {
+            for (int i = l; i <= r; i++) {
+                swap(arr, l, i);               // Меняем символы местами
+                permute(arr, l + 1, r);       // Рекурсивный вызов
+                swap(arr, l, i);               // Откат изменений
+            }
+        }
     }
-    
-    private static boolean nextPermutation(char[] array) {
-        int i = array.length - 2;
-        while (i >= 0 && array[i] >= array[i + 1]) i--;
-        
-        if (i < 0) return false;
-        
-        int j = array.length - 1;
-        while (array[j] <= array[i]) j--;
-        
-        swap(array, i, j);
-        reverse(array, i + 1, array.length - 1);
-        return true;
+
+    public static void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
-    
-    private static void swap(char[] array, int i, int j) {
-        char temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    
-    private static void reverse(char[] array, int start, int end) {
-        while (start < end) swap(array, start++, end--);
+
+    public static void main(String[] args) {
+        String s = "abc";
+        permute(s.toCharArray(), 0, s.length() - 1);
     }
 }
