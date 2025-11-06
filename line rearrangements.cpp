@@ -14,6 +14,7 @@ void permute(string str, int l, int r) {
     }
 }
 
+
 int main() {
     string s = "abc";
     permute(s, 0, s.size() - 1);
